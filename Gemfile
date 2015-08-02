@@ -13,6 +13,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'active_model_serializers'
 
+gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 

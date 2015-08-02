@@ -11,20 +11,76 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724161739) do
+ActiveRecord::Schema.define(version: 20150731202317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "attendances", force: :cascade do |t|
+    t.string   "date"
+    t.integer  "profile_id",  null: false
+    t.integer  "workshop_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "attendances", ["profile_id"], name: "index_attendances_on_profile_id", using: :btree
+  add_index "attendances", ["workshop_id"], name: "index_attendances_on_workshop_id", using: :btree
+
+  create_table "profiles", force: :cascade do |t|
+    t.string   "surname",    null: false
+    t.string   "given_name", null: false
+    t.string   "location",   null: false
+    t.text     "about_me",   null: false
+    t.string   "gender"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "profiles", ["surname"], name: "index_profiles_on_surname", using: :btree
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "title",        null: false
+    t.string   "instructions", null: false
+    t.integer  "profile_id",   null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "projects", ["profile_id"], name: "index_projects_on_profile_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",           null: false
+    t.string   "username",        null: false
     t.string   "password_digest", null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.string   "token",           null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["token"], name: "index_users_on_token", unique: true, using: :btree
+  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  create_table "workshops", force: :cascade do |t|
+    t.string   "title",        null: false
+    t.string   "location",     null: false
+    t.text     "about",        null: false
+    t.string   "contact_info", null: false
+    t.string   "repeats",      null: false
+    t.integer  "organizer_id", null: false
+    t.integer  "profile_id",   null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "workshops", ["location"], name: "index_workshops_on_location", using: :btree
+  add_index "workshops", ["organizer_id"], name: "index_workshops_on_organizer_id", using: :btree
+  add_index "workshops", ["profile_id"], name: "index_workshops_on_profile_id", using: :btree
+
+  add_foreign_key "attendances", "profiles"
+  add_foreign_key "attendances", "workshops"
+  add_foreign_key "profiles", "users"
+  add_foreign_key "projects", "profiles"
+  add_foreign_key "workshops", "profiles"
 end
