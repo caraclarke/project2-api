@@ -36,6 +36,7 @@ class UsersController < ApplicationController
     @user = User.new(user_credentials)
 
     if @user.save
+      @user.profile = Profile.new(profile_credentials)
       render json: @user, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -77,5 +78,15 @@ class UsersController < ApplicationController
     params.require(:credentials).permit(:email,
                                         :password,
                                         :password_confirmation)
+  end
+
+   def profile_credentials
+    params.require(:credentials).permit(:surname,
+                                      :given_name,
+                                      :location,
+                                      :about_me,
+                                      :gender,
+                                      :user_id,
+                                      :profile_picture)
   end
 end

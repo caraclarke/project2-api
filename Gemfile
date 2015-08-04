@@ -17,6 +17,12 @@ gem 'rack-cors', :require => 'rack/cors'
 
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 
+gem 'aws-sdk', '< 2.0'
+
+gem 'dotenv-rails', :groups => [:development, :test]
+
+gem 'byebug'
+
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 

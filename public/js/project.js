@@ -1,4 +1,7 @@
-// Projects
+$(function() {
+  'use strict';
+
+  // Projects
 
 $("#project-create").on('click', function(){
   $.ajax({
@@ -85,3 +88,5 @@ $("#project-destroy").on('click', function(){
 // ruby -run -e httpd . -p 5000
 
 // {"user":{"id":1,"email":"cara@gmail.com"} pw: 'abc1234'}
+
+}

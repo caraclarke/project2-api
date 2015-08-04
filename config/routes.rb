@@ -7,13 +7,30 @@ Rails.application.routes.draw do
 
   resources :users, except: [:show]
 
+  post '/profiles' => 'profiles#create'
+  get '/profiles/:id' => 'profiles#show'
+  patch '/profiles/:id' => 'profiles#update'
+  delete '/profiles/:id' => 'profiles#destroy'
+
+  resources :profiles
+
   post '/projects' => 'projects#create'
   get '/projects/:id' => 'projects#show'
   get '/projects' => 'projects#list'
   patch '/projects/:id' => 'projects#update'
   delete '/projects/:id' => 'projects#destroy'
+  get 'projects/:email' => 'projects#find_by_email'
 
   resources :projects
+
+  resources :profiles do
+    resources :projects
+    resources :attendances
+  end
+
+  resources :user do
+    resources :profiles
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

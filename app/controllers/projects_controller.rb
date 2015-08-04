@@ -1,19 +1,7 @@
 class ProjectsController < ApplicationController
   skip_before_action :authenticate, only: [:create, :update, :destroy]
 
-  def index
-    @projects = Project.all
-
-    render json: @projects, each_serializer: ProjectSerializer
-  end
-
-  def show
-    if current_project.id == params[:id].to_i
-      render json: current_project, serializer: CurrentProjectSerializer
-    else
-      render json: Project.find(params[:id])
-    end
-  end
+# need projects serializer
 
   def create
     @projects = Project.new(project_credentials)
@@ -31,6 +19,24 @@ class ProjectsController < ApplicationController
     else
       render json: @project.errors, status: :unprocessable_entity
     end
+  end
+
+  def index
+    @projects = Project.all
+
+    render json: @projects, each_serializer: ProjectSerializer
+  end
+
+  def show
+    if current_project.id == params[:id].to_i
+      render json: current_project, serializer: CurrentProjectSerializer
+    else
+      render json: Project.find(params[:id])
+    end
+  end
+
+  def find_by_email
+    reviews = Project.where(email: params[:email])
   end
 
   #current_user.events.new
