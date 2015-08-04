@@ -3,7 +3,7 @@ class Profile < ActiveRecord::Base
   has_many :projects
   has_many :attendances
   has_many :workshops, through: :attendances
-  has_one :workshop
+  has_one :workshop, foreign_key: "workshop_created", through: :attendance
 
   has_attached_file :profile_picture,  #Or whatever you want to call the image you're uploading.
               :styles => { :medium => "300x300>", :thumb => "100x100>" },
@@ -11,3 +11,6 @@ class Profile < ActiveRecord::Base
   validates_attachment_content_type :profile_picture, :content_type => /\Aimage\/.*\Z/
 
 end
+
+
+#associations

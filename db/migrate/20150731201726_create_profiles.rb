@@ -7,6 +7,7 @@ class CreateProfiles < ActiveRecord::Migration
       t.text :about_me, null: false
       t.string :gender
       t.references :user, index: true, foreign_key: true
+      t.references :workshop_created, foreign_key: true
 
       t.timestamps null: false
     end

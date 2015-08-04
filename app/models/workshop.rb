@@ -1,5 +1,5 @@
 class Workshop < ActiveRecord::Base
-  belongs_to :profile, foreign_key: "organizer_id"
+  has_one :profile, foreign_key: "organizer_id", through: :attendance
   has_many :attendances
   has_many :profiles, through: :attendances
 
