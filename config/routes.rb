@@ -2,8 +2,10 @@ Rails.application.routes.draw do
 
   post '/users' => 'users#create'
   post '/login' => 'users#login'
+  patch '/users/:id' => 'users#update'
+  delete '/users/:id' => 'users#destroy'
 
-  resources :users, except: [:show, :edit]
+  resources :users, except: [:show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

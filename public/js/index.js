@@ -4,9 +4,10 @@ $(function() {
   // var sa = 'localhost:3000';
   // var sa = '';
 
-  $('#register').on('click', function(e){
-     $.ajax({
-       url: '/users',
+// User
+$('#register').on('click', function(e){
+ $.ajax({
+   url: '/users',
        contentType: 'application/json',  // to send as JSON, must specify content type
        processData: false,
        data: JSON.stringify({
@@ -26,42 +27,66 @@ $(function() {
      });
    }); // end register
 
-  $('#login').on('click', function(e){
-   $.ajax({
-      url: '/login',
-       contentType: 'application/json',
-       processData: false,
-       data: JSON.stringify({
-         credentials: {
-           email: $('#email').val(),
-           password: $('#password').val(),
-         }
-       }),
-       dataType: 'json',
-       method: 'POST'
-     }).done(function(data, textStatus, jqxhr){
-       $('#token').val(data.token);
-     }).fail(function(jqxhr, textStatus, errorThrown){
-       $('#result').val('login failed');
-     });
+$('#login').on('click', function(e){
+ $.ajax({
+  url: '/login',
+  contentType: 'application/json',
+  processData: false,
+  data: JSON.stringify({
+   credentials: {
+     email: $('#email').val(),
+     password: $('#password').val(),
+   }
+ }),
+  dataType: 'json',
+  method: 'POST'
+}).done(function(data, textStatus, jqxhr){
+ $('#token').val(data.token);
+}).fail(function(jqxhr, textStatus, errorThrown){
+ $('#result').val('login failed');
+});
    }); // end login
 
-  $('#list').on('click', function(e){
-    $.ajax(sa + '/users', {
-      dataType: 'json',
-      method: 'GET',
-      headers: {
+$("#update").on('click', function(){
+  $.ajax({
+    url: '/users/' + $("#user-id").val(),
+    method: 'PATCH',
+    headers: {
         Authorization: 'Token token=' + $('#token').val()
-      }
-    }).done(function(data, textStatus, jqxhr){
-     $('#result').val(JSON.stringify(data));
-   }).fail(function(jqxhr, textStatus, errorThrown){
-     $('#result').val('list failed');
-   });
-  }); // end list
+    },
+    data: {
+      credentials: {
+       email: $('#email').val(),
+       username: $('#username').val(),
+       password: $('#password').val(),
+       password_confirmation: $('#password').val()
+     }
+   }
+ }).done(function(data, textStatus, jqxhr){
+   $('#result').val(JSON.stringify(data));
+ }).fail(function(jqxhr, textStatus, errorThrown){
+   $('#result').val('update failed');
+ });
+}); // end update
 
+$("#destroy").on('click', function(){
+  $.ajax({
+    url: '/users/' + $("#user-id").val(),
+    method: 'DELETE',
+    headers: {
+        Authorization: 'Token token=' + $('#token').val()
+    },
+  }).done(function(data){
+    console.log("Deleted user!");
+  }).fail(function(data){
+    console.error(data);
+  });
+}); // end destroy
+
+  // Games
   $('#create').on('click', function(e){
-    $.ajax(sa + '/games', {
+    $.ajax({
+      url: '/games',
       contentType: 'application/json',  // to send as JSON, must specify content type
       processData: false,
       data: JSON.stringify({}),
@@ -78,7 +103,8 @@ $(function() {
   }); // end create
 
   $('#show').on('click', function(e){
-    $.ajax(sa + '/games/' + $('#id').val(), {
+    $.ajax({
+      url: '/games/' + $('#id').val(),
       dataType: 'json',
       method: 'GET',
       headers: {
@@ -92,7 +118,8 @@ $(function() {
   }); // end show
 
   $('#join').on('click', function(e){
-    $.ajax(sa + '/games/' + $('#id').val(), {
+    $.ajax({
+      url: '/games/' + $('#id').val(),
       contentType: 'application/json',  // to send as JSON, must specify content type
       processData: false,
       data: JSON.stringify({}),
@@ -109,7 +136,8 @@ $(function() {
   }); // end join
 
   $('#move').on('click', function(e){
-    $.ajax(sa + '/games/' + $('#id').val(), {
+    $.ajax({
+      url: '/games/' + $('#id').val(),
       contentType: 'application/json',  // to send as JSON, must specify content type
       processData: false,
       data: JSON.stringify({
@@ -133,7 +161,8 @@ $(function() {
   }); // end move
 
   $('#watch').on('click', function(){
-    gameWatcher = resourceWatcher(sa + '/games/' + $('#id').val() + '/watch', {
+    gameWatcher = resourceWatcher({
+      url: '/games/' + $('#id').val() + '/watch',
       Authorization: 'Token token=' + $('#token').val()
     });
     gameWatcher.on('change', function(data){

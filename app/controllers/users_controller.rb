@@ -45,19 +45,30 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    # if @user.update(user_params)
-    #   head :no_content
-    # else
-    #   render json: @user.errors, status: :unprocessable_entity
-    # end
+    if current_user.update(user_credentials)
+      head :no_content
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
   end
+
+  #current_user.events.new
+
+  # user = User.find(params[:id])
+  #   if user.update(user_params)
+  #     user.save
+  #     render json: user
+  #   else
+  #     render json: movie.errors, status: :unprocessable_entity
+  #   end
+  # end
 
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    # @user.destroy
+    current_user.destroy!
 
-    # head :no_content
+    head :ok
   end
 
   private
