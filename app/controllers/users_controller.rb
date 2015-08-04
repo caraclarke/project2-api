@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate, only: [:login, :create]
 
-  #commented out actions/methods not currently using
-
-  #POST /login
+  # POST /login
   def login
     credentials = user_credentials
     token = User.login(credentials[:email], credentials[:password])
@@ -19,13 +17,17 @@ class UsersController < ApplicationController
   def index
     @users = User.all
 
-    render json: @users
+    render json: @users, each_serializer: UserSerializer
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
-    # render json: @user
+    if current_user.id == params[:id].to_i
+      render json: current_user, serializer: CurrentUserSerializer
+    else
+      render json: User.find(params[:id])
+    end
   end
 
   # POST /users
@@ -43,8 +45,6 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    # @user = User.find(params[:id])
-
     # if @user.update(user_params)
     #   head :no_content
     # else
@@ -55,15 +55,16 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
+    # @user.destroy
 
-    head :ok
+    # head :no_content
   end
 
   private
 
   def user_credentials
-    params.require(:credentials).permit(:email, :password, :password_confirmation)
+    params.require(:credentials).permit(:email,
+                                        :password,
+                                        :password_confirmation)
   end
-
 end

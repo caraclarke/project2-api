@@ -1,18 +1,20 @@
 $(function() {
   'use strict';
-  var gameWatcher;
-  var sa = '//localhost:3000';
+  // var gameWatcher;
+  // var sa = 'localhost:3000';
   // var sa = '';
 
   $('#register').on('click', function(e){
-     $.ajax(sa + '/users', {  // variable sa with '/register' tacked on
+     $.ajax({
+       url: '/users',
        contentType: 'application/json',  // to send as JSON, must specify content type
        processData: false,
-       data: JSON.stringify({    // takes the object and turns it to JSON
+       data: JSON.stringify({
          credentials: {
            email: $('#email').val(),
+           username: $('#username').val(),
            password: $('#password').val(),
-           password_confirmation: $('#password').val()  // not really checking, save time
+           password_confirmation: $('#password').val()
          }
        }),
        dataType: 'json',
@@ -25,10 +27,11 @@ $(function() {
    }); // end register
 
   $('#login').on('click', function(e){
-   $.ajax(sa + '/login', {
-       contentType: 'application/json',  // to send as JSON, must specify content type
+   $.ajax({
+      url: '/login',
+       contentType: 'application/json',
        processData: false,
-       data: JSON.stringify({    // takes the object and turns it to JSON
+       data: JSON.stringify({
          credentials: {
            email: $('#email').val(),
            password: $('#password').val(),
@@ -155,3 +158,4 @@ $(function() {
 // headers: { Authorization: 'Token token=' + $('#token').val(cbb4ebd15c6f75836bb09584f9903e02) }
 // ruby -run -e httpd . -p 5000
 
+// {"user":{"id":5,"email":"cclarke6@asu.edu"}}
