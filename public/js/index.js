@@ -129,7 +129,7 @@ $("#profile-show").on('click', function(event){
   $.ajax({
     url: "/profiles/" + $('#profile_id').val(),
   }).done(function(profile){
-    $("#profiles").html("<li>" + profile.given_name + " " + profile.surname + " - " + profile.location + " - " + profile.about_me + " - " + profile.gender + "</li>");
+    $("#result").html(profile.given_name + " " + profile.surname + " - " + profile.location + " - " + profile.about_me + " - " + profile.gender);
   }).fail(function(data){
     console.error(data);
   });

@@ -21,8 +21,8 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    profile = Profile.find(params[:id])
-    if profile.update(profile_credentials)
+    @profile = Profile.find(params[:id]) # delete?
+    if @profile.update(profile_credentials)
       head :no_content
     else
       render json: profile.errors, status: :unprocessable_entity
@@ -30,12 +30,19 @@ class ProfilesController < ApplicationController
   end
 
   def destroy
-    current_user.destroy!
+
+    if @profile
+      @profile.destroy!
+    end
 
     head :ok
   end
 
   private
+
+  def set_profile
+     @profile = Profile.find(params[:id])
+   end
 
   def profile_credentials
     params.require(:credentials).permit(:surname,
@@ -46,5 +53,4 @@ class ProfilesController < ApplicationController
                                       :user_id
                                       )
   end
-
 end
