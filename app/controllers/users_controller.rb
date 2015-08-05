@@ -12,19 +12,17 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.all
+  # def index
+  #   @users = User.all
 
-    render json: @users, each_serializer: UserSerializer
-  end
+  #   render json: @users, each_serializer: UserSerializer
+  # end
 
   # GET /users/1
   # GET /users/1.json
   def show
     if current_user.id == params[:id].to_i
-      render json: current_user, serializer: CurrentUserSerializer
+      render json: current_user, serializer: UserSerializer
     else
       render json: User.find(params[:id])
     end

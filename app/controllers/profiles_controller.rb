@@ -1,19 +1,16 @@
 class ProfilesController < ApplicationController
-  skip_before_action :authenticate, only: [:create, :update, :destroy]
+  skip_before_action :authenticate, only: [:show]
 
   def show
-    if current_user.id == params[:id].to_i
-      render json: current_user, serializer: CurrentProfileSerializer
-    else
-      render json: Profile.find(params[:id])
-    end
+    @profile = Profile.find(params[:id])
+    render json: @profile, serializer: ProfileSerializer
   end
 
   def create
     @profile = Profile.new(profile_credentials)
 
     if @profile.save
-      current_user.profile = Profile.new(profile_credentials)
+      @profile.profile = Profile.new(profile_credentials)
       render json: @profile, status: :created, location: @profile
     else
       render json: @profile.errors, status: :unprocessable_entity
@@ -30,7 +27,7 @@ class ProfilesController < ApplicationController
   end
 
   def destroy
-
+    @profile = Profile.find(params[:id])
     if @profile
       @profile.destroy!
     end
@@ -40,9 +37,9 @@ class ProfilesController < ApplicationController
 
   private
 
-  def set_profile
-     @profile = Profile.find(params[:id])
-   end
+  # def set_profile
+  #    @profile = Profile.find(params[:id])
+  #  end
 
   def profile_credentials
     params.require(:credentials).permit(:surname,

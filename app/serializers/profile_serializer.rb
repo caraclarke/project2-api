@@ -1,5 +1,5 @@
 class ProfileSerializer < ActiveModel::Serializer
-  attributes :id, :given_name, :about_me, :user
+  attributes :given_name, :surname, :about_me, :location, :gender
 
   def user
     object.user

@@ -125,11 +125,15 @@ $("#profile-update").on('click', function(){
  });
 }); // end update
 
+var profileShowTemplate = Handlebars.compile($("#profile").html());
+
 $("#profile-show").on('click', function(event){
   $.ajax({
     url: "/profiles/" + $('#profile_id').val(),
-  }).done(function(profile){
-    $("#result").html(profile.given_name + " " + profile.surname + " - " + profile.location + " - " + profile.about_me + " - " + profile.gender);
+  }).done(function(response){
+     $("#show-profile").html(profileShowTemplate({
+        profile: response.profile
+    }));
   }).fail(function(data){
     console.error(data);
   });
@@ -156,4 +160,3 @@ $("#profile-destroy").on('click', function(){
 // headers: { Authorization: 'Token token=' + $('#token').val(cbb4ebd15c6f75836bb09584f9903e02) }
 // ruby -run -e httpd . -p 5000
 
-// {"user":{"id":1,"email":"cara@gmail.com"} pw: 'abc1234'}
