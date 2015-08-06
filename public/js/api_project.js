@@ -3,25 +3,33 @@ $(function() {
 
   // Projects
 
-$("#project-create").on('click', function(){
-  $.ajax({
-    url: '/projects',
-    method: 'POST',
-    data: {
-      movie: {
-        title: $("#movie-title").val(),
-        description: $("#movie-description").val(),
-        release_year: Number($("#movie-year").val()),
-        mpaa_rating: $("#movie-mpaa").val(),
-        length: Number($("#movie-length").val())
+$("#project-create").on('click', function(e){
+  var projectReader = new FileReader();
+  projectReader.onload = function(event) {
+    var project_picture = event.target.result;
+      $.ajax({
+      url: '/projects',
+      method: 'POST',
+      headers: {
+        Authorization: 'Token token=' + $('#token').val()
+      },
+      data: {
+        credentials: {
+          title: $('#project-title').val(),
+          instructions: $('#project-instructions').val(),
+          profile_id: $('profile_id').val(),
+          project_image: project_picture
+        }
       }
-    }
-  }).done(function(data){
-    console.log("Created movie!");
-  }).fail(function(data){
-    console.error(data);
-  });
-});
+    }).done(function(data){
+      console.log("Created project!");
+      $('#result').val(JSON.stringify(data));
+    }).fail(function(data){
+      console.error(data);
+    });
+  }
+  projectReader.readAsDataURL($('#project-picture')[0].files[0]);
+}); // end project create
 
 $("#project-show").on('click', function(event){
   $.ajax({
@@ -31,7 +39,7 @@ $("#project-show").on('click', function(event){
   }).fail(function(data){
     console.error(data);
   });
-});
+}); // end project show
 
 $("#project-index").on('click', function(event){
   $.ajax({
@@ -44,7 +52,7 @@ $("#project-index").on('click', function(event){
   }).fail(function(data){
     console.error(data);
   });
-});
+}); // end project index
 
 $("#project-update").on('click', function(){
   $.ajax({
@@ -55,10 +63,9 @@ $("#project-update").on('click', function(){
     },
     data: {
       credentials: {
-       email: $('#email').val(),
-       username: $('#username').val(),
-       password: $('#password').val(),
-       password_confirmation: $('#password').val()
+        title: $('#project-title').val(),
+        instructions: $('#project-instructions').val(),
+        profile_id: $('profile_id').val()
      }
    }
  }).done(function(data, textStatus, jqxhr){
@@ -66,7 +73,7 @@ $("#project-update").on('click', function(){
  }).fail(function(jqxhr, textStatus, errorThrown){
    $('#result').val('update failed');
  });
-}); // end update
+}); // end project update
 
 $("#project-destroy").on('click', function(){
   $.ajax({
@@ -74,19 +81,17 @@ $("#project-destroy").on('click', function(){
     method: 'DELETE',
     headers: {
         Authorization: 'Token token=' + $('#token').val()
-    }, // is there a way to get it by user id?
+    },
   }).done(function(data){
-    console.log("Deleted user!");
+    console.log("Deleted project!");
   }).fail(function(data){
     console.error(data);
   });
-}); // end destroy
+}); // end project destroy
 
 // end Projects
 
 // headers: { Authorization: 'Token token=' + $('#token').val(cbb4ebd15c6f75836bb09584f9903e02) }
 // ruby -run -e httpd . -p 5000
 
-// {"user":{"id":1,"email":"cara@gmail.com"} pw: 'abc1234'}
-
-}
+}); // end page

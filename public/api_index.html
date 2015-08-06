@@ -2,17 +2,16 @@
 <html>
 <head>
  <title>Project 2</title>
- <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.js" defer charset="utf-8"></script>
- <script type="text/javascript" src="js/resource-watcher-0.1.0.js" defer charset="utf-8"></script>
  <script type="text/javascript" src="js/index.js" defer charset="utf-8"></script>
- <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-   <script type="text/javascript" src="js/handlebars-v3.0.3.js"></script>
+ <script type="text/javascript" src="js/project.js" defer charset="utf-8"></script>
+ <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.js" defer charset="utf-8"></script>
 </head>
 <body>
 <!--because email and password are set as credentials already in the API-->
    <input id="email" type="text" placeholder="email">
    <input id="password" type="password" placeholder="password">
    <input id="user-id" type="text" placeholder="user id"><br>
+   <!-- how do i transfer this? -->
 
    <input id="surname" type="text" placeholder="surname">
    <input id="given_name" type="text" placeholder="given_name">
@@ -45,10 +44,12 @@
    <input id="profile-destroy" type="button" value="Profile Destroy"><br><br>
 
    <label for="project">Project Buttons: </label>
-   <input id="title" type="text" placeholder="project title">
-   <input id="instructions" type="text" placeholder="project instructions">
-   <input id="project-profile-id" type="text" placeholder="project profile id"><br>
+   <input id="project-title" type="text" placeholder="project title">
+   <input id="project-instructions" type="text" placeholder="project instructions">
+   <input id="project-picture" type="file" value="Project Picture"><br>
+   <!-- <input id="project-profile-id" type="text" placeholder="project profile id"><br> -->
 
+   <input id="project-create" type="button" value="Project Create">
    <input id="project-update" type="button" value="Project Update">
    <input id="project-show" type="button" value=" Project Show">
    <input id="project-list" type="button" value="Project List">
@@ -71,5 +72,9 @@
        </li>
    </script>
 
+ <script type="text/javascript" src="js/resource-watcher-0.1.0.js" defer charset="utf-8"></script>
+ <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+   <script type="text/javascript" src="js/handlebars-v3.0.3.js"></script>
+   <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.js" defer charset="utf-8"></script>
 </body>
 </html>

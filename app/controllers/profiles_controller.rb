@@ -2,8 +2,13 @@ class ProfilesController < ApplicationController
   skip_before_action :authenticate, only: [:show]
 
   def show
-    @profile = Profile.find(params[:id])
-    render json: @profile, serializer: ProfileSerializer
+    user = User.find_by(token: session[:token])
+    if user
+      @profile = Profile.find_by(user_id: user.id)
+      render json: @profile, serializer: ProfileSerializer
+    else
+      head :unauthorized
+    end
   end
 
   def create

@@ -23,8 +23,29 @@ Rails.application.routes.draw do
 
   resources :projects
 
+  post '/workshops' => 'workshops#create'
+  get '/workshops/:id' => 'workshops#show'
+  get '/workshops' => 'workshops#index'
+  patch '/workshops/:id' => 'workshops#update'
+  delete '/workshops/:id' => 'workshops#destroy'
+
+  resources :workshops
+
+  post '/attendances' => 'attendances#create'
+  get '/attendances/:id' => 'attendances#show'
+  get '/attendances' => 'attendances#index'
+  patch '/attendances/:id' => 'attendances#update'
+  delete '/attendances/:id' => 'attendances#destroy'
+
+  resources :attendances
+
   resources :profiles do
     resources :projects
+    resources :workshops
+    resources :attendances
+  end
+
+  resources :workshops do
     resources :attendances
   end
 

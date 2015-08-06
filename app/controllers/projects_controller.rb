@@ -1,15 +1,16 @@
 class ProjectsController < ApplicationController
-  skip_before_action :authenticate, only: [:create, :update, :destroy]
+  skip_before_action :authenticate, only: [:index, :show]
 
 # need projects serializer
 
   def create
-    @projects = Project.new(project_credentials)
+    @project = Project.new(project_credentials)
+    current_user.profile.projects << @project
 
-    if @projects.save
-      render json: @projects, status: :created, location: @projects
+    if @project.save
+      render json: @project, status: :created, location: @project
     else
-      render json: @projects.errors, status: :unprocessable_entity
+      render json: @project.errors, status: :unprocessable_entity
     end
   end
 
@@ -22,9 +23,9 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = Project.all
+    @project = Project.all
 
-    render json: @projects, each_serializer: ProjectSerializer
+    render json: @project, each_serializer: ProjectSerializer
   end
 
   def show
@@ -52,6 +53,7 @@ class ProjectsController < ApplicationController
   def project_credentials
     params.require(:credentials).permit(:title,
                                         :instructions,
-                                        :profile_id)
+                                        :profile_id,
+                                        :project_image)
   end
 end

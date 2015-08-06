@@ -6,7 +6,8 @@ class UsersController < ApplicationController
     credentials = user_credentials
     token = User.login(credentials[:email], credentials[:password])
     if token
-      render json: { token: token }
+      session[:token] = token
+      render json: { success: true }
     else
       head :unauthorized
     end
@@ -16,10 +17,8 @@ class UsersController < ApplicationController
   #   @users = User.all
 
   #   render json: @users, each_serializer: UserSerializer
-  # end
+  # end admin only
 
-  # GET /users/1
-  # GET /users/1.json
   def show
     if current_user.id == params[:id].to_i
       render json: current_user, serializer: UserSerializer
@@ -50,17 +49,6 @@ class UsersController < ApplicationController
       render json: @user.errors, status: :unprocessable_entity
     end
   end
-
-  #current_user.events.new
-
-  # user = User.find(params[:id])
-  #   if user.update(user_params)
-  #     user.save
-  #     render json: user
-  #   else
-  #     render json: movie.errors, status: :unprocessable_entity
-  #   end
-  # end
 
   # DELETE /users/1
   # DELETE /users/1.json
