@@ -12,3 +12,8 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Settings for production environment
+SECRET_KEY_BASE=726e1198480cf1fb6fee006a1b4bb12b44f065734a672889263e154862f66637ada9268a78243f8c6972eea28008faf9112552c3112ce3c5b1b5f5ccb2e16943
+RACK_ENV=development
+PORT=3000
