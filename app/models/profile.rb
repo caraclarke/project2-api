@@ -10,7 +10,7 @@ class Profile < ActiveRecord::Base
 
   has_attached_file :profile_picture, #name
               :styles => { :medium => "300x300>", :thumb => "100x100>" },
-              :default_url => "../assets/images/default-profile-image.jpg"
+              :default_url => "/:attachment/:style/missing.png"
   validates_attachment_content_type :profile_picture, :content_type => /\Aimage\/.*\Z/
 
 end
