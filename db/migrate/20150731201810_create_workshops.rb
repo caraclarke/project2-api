@@ -7,7 +7,7 @@ class CreateWorkshops < ActiveRecord::Migration
       t.string :contact_info, null: false
       t.string :repeats, null: false
       t.integer :organizer_id, null: false, index: true, foreign_key: true
-      t.references :profile, null: false, index: true, foreign_key: true, through: :attendance
+      t.references :profile, index: true, foreign_key: true, through: :attendance
 
       t.timestamps null: false
     end

@@ -1,21 +1,21 @@
 class ProfilesController < ApplicationController
-  skip_before_action :authenticate, only: [:show]
+  before_filter :set_profile, only: [:show, :update, :destroy]
+  skip_before_action :authenticate
+
+ #  def index
+ #   if params[:limit]
+ #     profiles = current_user ? current_user.profiles : []
+ #     byebug
+ #     render json: profiles
+ # end
 
   def show
-    user = User.find_by(token: session[:token])
-    if user
-      @profile = Profile.find_by(user_id: user.id)
-      render json: @profile, serializer: ProfileSerializer
-    else
-      head :unauthorized
-    end
+    render json: @profile, serializer: ProfileSerializer
   end
 
   def create
-    @profile = Profile.new(profile_credentials)
-
     if @profile.save
-      @profile.profile = Profile.new(profile_credentials)
+      @profile.profile = Profile.new(profile_params)
       render json: @profile, status: :created, location: @profile
     else
       render json: @profile.errors, status: :unprocessable_entity
@@ -23,31 +23,26 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    @profile = Profile.find(params[:id]) # delete?
-    if @profile.update(profile_credentials)
-      head :no_content
+    if @profile.update(profile_params)
+      render json: @profile
     else
       render json: profile.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @profile = Profile.find(params[:id])
-    if @profile
-      @profile.destroy!
-    end
-
+    @profile.destroy!
     head :ok
   end
 
   private
 
-  # def set_profile
-  #    @profile = Profile.find(params[:id])
-  #  end
+  def set_profile
+     @profile = Profile.find(params[:id])
+   end
 
-  def profile_credentials
-    params.require(:credentials).permit(:surname,
+  def profile_params
+    params.require(:profile).permit(:surname,
                                       :given_name,
                                       :location,
                                       :about_me,

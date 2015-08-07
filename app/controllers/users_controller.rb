@@ -5,9 +5,12 @@ class UsersController < ApplicationController
   def login
     credentials = user_credentials
     token = User.login(credentials[:email], credentials[:password])
+    user = User.find_by(token: token)
     if token
-      session[:token] = token
-      render json: { success: true }
+      render json: { token: token,
+                      profile_id: user.profile.id,
+                      user_id: user.id
+       }
     else
       head :unauthorized
     end
@@ -50,8 +53,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
   def destroy
     current_user.destroy!
 

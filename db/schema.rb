@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20150805155329) do
 
   create_table "attendances", force: :cascade do |t|
     t.string   "date"
-    t.integer  "profile_id",  null: false
+    t.integer  "profile_id"
     t.integer  "workshop_id", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20150805155329) do
   create_table "projects", force: :cascade do |t|
     t.string   "title",                      null: false
     t.string   "instructions",               null: false
-    t.integer  "profile_id",                 null: false
+    t.integer  "profile_id"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.string   "project_image_file_name"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20150805155329) do
     t.string   "contact_info", null: false
     t.string   "repeats",      null: false
     t.integer  "organizer_id", null: false
-    t.integer  "profile_id",   null: false
+    t.integer  "profile_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end

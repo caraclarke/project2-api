@@ -1,13 +1,13 @@
 class ProjectsController < ApplicationController
+  before_filter :set_project, only: [:show, :update, :destroy]
   skip_before_action :authenticate, only: [:index, :show]
 
-# need projects serializer
-
   def create
-    @project = Project.new(project_credentials)
-    current_user.profile.projects << @project
+    @project = Project.new(project_params)
 
     if @project.save
+      @project = Project.new(project_params)
+      current_user.profile.projects << @project
       render json: @project, status: :created, location: @project
     else
       render json: @project.errors, status: :unprocessable_entity
@@ -15,8 +15,8 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    if current_user.projects.update(project_credentials)
-      head :no_content
+    if @project.update(project_params)
+      render json: @project, status: :accepted
     else
       render json: @project.errors, status: :unprocessable_entity
     end
@@ -29,31 +29,30 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    if current_project.id == params[:id].to_i
-      render json: current_project, serializer: CurrentProjectSerializer
-    else
-      render json: Project.find(params[:id])
-    end
+    render json: @project, serializer: ProjectSerializer
   end
 
   def find_by_email
-    reviews = Project.where(email: params[:email])
+    @project = Project.where(email: params[:email])
   end
 
   #current_user.events.new
 
   def destroy
-    current_user.projects.destroy!
-
+    @project.destroy!
     head :ok
   end
 
   private
 
-  def project_credentials
-    params.require(:credentials).permit(:title,
-                                        :instructions,
-                                        :profile_id,
-                                        :project_image)
+  def set_project
+    @project = Project.find(params[:id])
+  end
+
+  def project_params
+    params.require(:project).permit(:title,
+                                    :instructions,
+                                    :profile_id,
+                                    :project_image)
   end
 end

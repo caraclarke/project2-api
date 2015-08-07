@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   patch '/users/:id' => 'users#update'
   delete '/users/:id' => 'users#destroy'
 
-  resources :users, except: [:show]
+  resources :users, except: [:show, :index]
 
   post '/profiles' => 'profiles#create'
   get '/profiles/:id' => 'profiles#show'
@@ -16,38 +16,36 @@ Rails.application.routes.draw do
 
   post '/projects' => 'projects#create'
   get '/projects/:id' => 'projects#show'
-  get '/projects' => 'projects#list'
+  get '/projects' => 'projects#index'
   patch '/projects/:id' => 'projects#update'
   delete '/projects/:id' => 'projects#destroy'
   get 'projects/:email' => 'projects#find_by_email'
 
   resources :projects
 
-  post '/workshops' => 'workshops#create'
-  get '/workshops/:id' => 'workshops#show'
-  get '/workshops' => 'workshops#index'
-  patch '/workshops/:id' => 'workshops#update'
-  delete '/workshops/:id' => 'workshops#destroy'
+  # post '/workshops' => 'workshops#create'
+  # get '/workshops/:id' => 'workshops#show'
+  # get '/workshops' => 'workshops#index'
+  # patch '/workshops/:id' => 'workshops#update'
+  # delete '/workshops/:id' => 'workshops#destroy'
 
-  resources :workshops
+  # resources :workshops
 
-  post '/attendances' => 'attendances#create'
-  get '/attendances/:id' => 'attendances#show'
-  get '/attendances' => 'attendances#index'
-  patch '/attendances/:id' => 'attendances#update'
-  delete '/attendances/:id' => 'attendances#destroy'
+  # post '/attendances' => 'attendances#create'
+  # get '/attendances/:id' => 'attendances#show'
+  # get '/attendances' => 'attendances#index'
+  # patch '/attendances/:id' => 'attendances#update'
+  # delete '/attendances/:id' => 'attendances#destroy'
 
-  resources :attendances
+  # resources :attendances
 
   resources :profiles do
     resources :projects
-    resources :workshops
-    resources :attendances
   end
 
-  resources :workshops do
-    resources :attendances
-  end
+  # resources :workshops do
+  #   resources :attendances
+  # end
 
   resources :user do
     resources :profiles

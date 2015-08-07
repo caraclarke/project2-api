@@ -1,10 +1,12 @@
 class Profile < ActiveRecord::Base
   attr_accessor :profile_picture
   belongs_to :user
-  has_many :projects
-  has_many :attendances
+
+  has_many :projects, dependent: :nullify
   has_many :workshops, through: :attendances
-  has_one :workshop, foreign_key: "workshop_created", through: :attendance
+  has_many :attendances, dependent: :nullify
+
+  # has_one :workshop, foreign_key: "workshop_created", through: :attendance
 
   has_attached_file :profile_picture, #name
               :styles => { :medium => "300x300>", :thumb => "100x100>" },
