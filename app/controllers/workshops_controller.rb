@@ -54,7 +54,6 @@ end
                                         :about,
                                         :contact_info,
                                         :repeats,
-                                        :profile_id,
                                         :organizer_id)
   end
 end

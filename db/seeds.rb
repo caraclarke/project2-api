@@ -1,11 +1,5 @@
-
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.create!([
   {email: "cara@gmail.com", password: "abc123", password_confirmation: "abc123", token: ""},
@@ -44,4 +38,70 @@ Project.create!([
   {title: "Embroider a baseball hat", instructions: "1. Know how to Embroider.", profile_id: 8},
   {title: "Decorate a pillow", instructions: "1. Know how to Embroider.", profile_id: 9},
   {title: "Sew/Embroider a pillowcase", instructions: "1. Know how to sew. 2. Know how to Embroider.", profile_id: 10}
+])
+
+Workshop.create!([
+  {title: "Beginning Knitting", location: "Boston, MA", about: "A crosshatch workshop", contact_info: "email: phone number: ", repeats: "Weekly", organizer_id: 1},
+  {title: "Intro to Crochet", location: "San Francisco, CA", about: "A crosshatch workshop", contact_info: "email: phone number: ", repeats: "No", organizer_id: 1},
+  {title: "How to make a craft blog", location: "Boston, MA", about: "A crosshatch workshop", contact_info: "email: phone number: ", repeats: "Monthly", organizer_id: 3},
+  {title: "Sew a simple skirt", location: "Boston, MA", about: "A crosshatch workshop", contact_info: "email: phone number: ", repeats: "Weekly", organizer_id: 5},
+  {title: "Intermediate Knitting", location: "San Francisco, CA", about: "A crosshatch workshop", contact_info: "email: phone number: ", repeats: "No", organizer_id: 2},
+  {title: "Advanced Crochet", location: "Boston, MA", about: "A crosshatch workshop", contact_info: "email: phone number: ", repeats: "Monthly", organizer_id: 2},
+  {title: "Design with Lace", location: "Fort Collins, CO", about: "A crosshatch workshop", contact_info: "email: phone number: ", repeats: "No", organizer_id: 4}
+])
+
+Attendance.create!([
+  {date: "2015-12-17", profile_id: 1, workshop_id: 1},
+  {date: "2015-12-17", profile_id: 2, workshop_id: 1},
+  {date: "2015-12-17", profile_id: 3, workshop_id: 1},
+  {date: "2015-12-17", profile_id: 4, workshop_id: 1},
+  {date: "2015-12-17", profile_id: 5, workshop_id: 1},
+  {date: "2015-12-17", profile_id: 6, workshop_id: 1},
+  {date: "2015-12-17", profile_id: 7, workshop_id: 1},
+  {date: "2015-12-17", profile_id: 8, workshop_id: 1},
+  {date: "2015-12-17", profile_id: 9, workshop_id: 1},
+  {date: "2015-02-27", profile_id: 10, workshop_id: 2},
+  {date: "2015-02-27", profile_id: 1, workshop_id: 2},
+  {date: "2015-02-27", profile_id: 2, workshop_id: 2},
+  {date: "2015-02-27", profile_id: 3, workshop_id: 2},
+  {date: "2015-02-27", profile_id: 4, workshop_id: 2},
+  {date: "2015-04-03", profile_id: 5, workshop_id: 3},
+  {date: "2015-04-03", profile_id: 6, workshop_id: 3},
+  {date: "2015-04-03", profile_id: 7, workshop_id: 3},
+  {date: "2015-04-03", profile_id: 8, workshop_id: 3},
+  {date: "2015-04-03", profile_id: 9, workshop_id: 3},
+  {date: "2015-04-03", profile_id: 10, workshop_id: 3},
+  {date: "2015-04-03", profile_id: 1, workshop_id: 3},
+  {date: "2015-04-03", profile_id: 2, workshop_id: 3},
+  {date: "2015-04-03", profile_id: 3, workshop_id: 3},
+  {date: "2015-03-12", profile_id: 4, workshop_id: 4},
+  {date: "2015-03-12", profile_id: 5, workshop_id: 4},
+  {date: "2015-03-12", profile_id: 6, workshop_id: 4},
+  {date: "2015-03-12", profile_id: 7, workshop_id: 4},
+  {date: "2015-03-12", profile_id: 8, workshop_id: 4},
+  {date: "2015-07-19", profile_id: 9, workshop_id: 5},
+  {date: "2015-07-19", profile_id: 10, workshop_id: 5},
+  {date: "2015-07-19", profile_id: 1, workshop_id: 5},
+  {date: "2015-07-19", profile_id: 2, workshop_id: 5},
+  {date: "2015-07-19", profile_id: 3, workshop_id: 5},
+  {date: "2015-07-19", profile_id: 4, workshop_id: 5},
+  {date: "2015-07-19", profile_id: 5, workshop_id: 5},
+  {date: "2015-12-02", profile_id: 6, workshop_id: 6},
+  {date: "2015-12-02", profile_id: 7, workshop_id: 6},
+  {date: "2015-12-02", profile_id: 8, workshop_id: 6},
+  {date: "2015-12-02", profile_id: 9, workshop_id: 6},
+  {date: "2015-12-02", profile_id: 10, workshop_id: 6},
+  {date: "2015-12-02", profile_id: 1, workshop_id: 6},
+  {date: "2015-12-02", profile_id: 2, workshop_id: 6},
+  {date: "2015-12-02", profile_id: 3, workshop_id: 6},
+  {date: "2015-12-02", profile_id: 4, workshop_id: 6},
+  {date: "2015-12-02", profile_id: 5, workshop_id: 6},
+  {date: "2015-12-02", profile_id: 6, workshop_id: 6},
+  {date: "2015-12-02", profile_id: 7, workshop_id: 6},
+  {date: "2015-11-17", profile_id: 8, workshop_id: 7},
+  {date: "2015-11-17", profile_id: 9, workshop_id: 7},
+  {date: "2015-11-17", profile_id: 10, workshop_id: 7},
+  {date: "2015-11-17", profile_id: 1, workshop_id: 7},
+  {date: "2015-11-17", profile_id: 2, workshop_id: 7},
+  {date: "2015-11-17", profile_id: 3, workshop_id: 7}
 ])

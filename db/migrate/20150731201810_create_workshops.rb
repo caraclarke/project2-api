@@ -6,10 +6,11 @@ class CreateWorkshops < ActiveRecord::Migration
       t.text :about, null: false
       t.string :contact_info, null: false
       t.string :repeats, null: false
-      t.integer :organizer_id, null: false, index: true, foreign_key: true
-      t.references :profile, index: true, foreign_key: true, through: :attendance
+      t.references :organizer, null: false, index: true
 
       t.timestamps null: false
     end
+
+    add_foreign_key :workshops, :profiles, column: :organizer_id
   end
 end

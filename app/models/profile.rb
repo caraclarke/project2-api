@@ -3,10 +3,9 @@ class Profile < ActiveRecord::Base
   belongs_to :user
 
   has_many :projects, dependent: :nullify
-  has_many :workshops, through: :attendances
+  has_many :workshops_created, class_name: "Workshop", foreign_key: :organizer_id
   has_many :attendances, dependent: :nullify
-
-  # has_one :workshop, foreign_key: "workshop_created", through: :attendance
+  has_many :workshops, through: :attendances
 
   has_attached_file :profile_picture, #name
               :styles => { :medium => "300x300>", :thumb => "100x100>" },
@@ -14,6 +13,3 @@ class Profile < ActiveRecord::Base
   validates_attachment_content_type :profile_picture, :content_type => /\Aimage\/.*\Z/
 
 end
-
-
-#associations

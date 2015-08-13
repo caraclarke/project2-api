@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805155329) do
+ActiveRecord::Schema.define(version: 20150813205232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,24 +70,26 @@ ActiveRecord::Schema.define(version: 20150805155329) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   create_table "workshops", force: :cascade do |t|
-    t.string   "title",        null: false
-    t.string   "location",     null: false
-    t.text     "about",        null: false
-    t.string   "contact_info", null: false
-    t.string   "repeats",      null: false
-    t.integer  "organizer_id", null: false
-    t.integer  "profile_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "title",                       null: false
+    t.string   "location",                    null: false
+    t.text     "about",                       null: false
+    t.string   "contact_info",                null: false
+    t.string   "repeats",                     null: false
+    t.integer  "organizer_id",                null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "workshop_image_file_name"
+    t.string   "workshop_image_content_type"
+    t.integer  "workshop_image_file_size"
+    t.datetime "workshop_image_updated_at"
   end
 
   add_index "workshops", ["location"], name: "index_workshops_on_location", using: :btree
   add_index "workshops", ["organizer_id"], name: "index_workshops_on_organizer_id", using: :btree
-  add_index "workshops", ["profile_id"], name: "index_workshops_on_profile_id", using: :btree
 
   add_foreign_key "attendances", "profiles"
   add_foreign_key "attendances", "workshops"
   add_foreign_key "profiles", "users"
   add_foreign_key "projects", "profiles"
-  add_foreign_key "workshops", "profiles"
+  add_foreign_key "workshops", "profiles", column: "organizer_id"
 end

@@ -13,6 +13,3 @@ class CreateProfiles < ActiveRecord::Migration
   end
 end
 
-#information saved to both users and profiles
-#connect in user create
-#user.new and profile.new at the same time

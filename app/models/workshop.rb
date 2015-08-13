@@ -1,5 +1,7 @@
 class Workshop < ActiveRecord::Base
-  has_one :profile, foreign_key: "organizer_id", through: :attendance
+  attr_accessor :workshop_image
+  belongs_to :organizer, class_name: "Profile", foreign_key: :organizer_id
+
   has_many :attendances
   has_many :profiles, through: :attendances
 
