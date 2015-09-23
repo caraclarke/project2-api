@@ -7,8 +7,8 @@ class ProjectsController < ApplicationController
 
     if @project.save
       @project = Project.new(project_params)
-      current_user.profile.projects << @project
-      render json: @project, status: :created, location: @project
+      # current_user.profile.projects << @project
+      render json: @project, status: :created
     else
       render json: @project.errors, status: :unprocessable_entity
     end
@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
     @project = Project.where(email: params[:email])
   end
 
-  #current_user.events.new
+  # current_user.events.new
 
   def destroy
     @project.destroy!
