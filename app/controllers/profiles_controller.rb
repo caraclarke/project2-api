@@ -10,6 +10,12 @@ class ProfilesController < ApplicationController
  # end
 
   def show
+    if params[:limit]
+      projects = @profile ? @profile.projects : []
+    else
+      projects = Project.all
+    end
+
     render json: @profile, serializer: ProfileSerializer
   end
 
@@ -40,6 +46,13 @@ class ProfilesController < ApplicationController
   def set_profile
      @profile = Profile.find(params[:id])
    end
+
+  def project_params
+    params.require(:project).permit(:title,
+                                    :instructions,
+                                    :profile_id,
+                                    :project_image)
+  end
 
   def profile_params
     params.require(:profile).permit(:surname,
