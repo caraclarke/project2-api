@@ -2,20 +2,8 @@ class ProfilesController < ApplicationController
   before_filter :set_profile, only: [:show, :update, :destroy]
   skip_before_action :authenticate
 
- #  def index
- #   if params[:limit]
- #     profiles = current_user ? current_user.profiles : []
- #     byebug
- #     render json: profiles
- # end
-
   def show
-    if params[:limit]
-      projects = @profile ? @profile.projects : []
-    else
-      projects = Project.all
-    end
-
+    @profile = Profile.find(params[:id])
     render json: @profile, serializer: ProfileSerializer
   end
 

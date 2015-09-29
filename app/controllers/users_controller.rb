@@ -12,7 +12,8 @@ class UsersController < ApplicationController
                       user_id: user.id
        }
     else
-      head :unauthorized
+      # head :unauthorized
+      render json: @user.errors
     end
   end
 
@@ -47,7 +48,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     if current_user.update(user_credentials)
-      head :no_content
+      render json: current_user
     else
       render json: @user.errors, status: :unprocessable_entity
     end

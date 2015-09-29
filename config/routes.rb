@@ -5,23 +5,32 @@ Rails.application.routes.draw do
   patch '/users/:id' => 'users#update'
   delete '/users/:id' => 'users#destroy'
 
-  resources :users, except: [:show, :index]
+  # resources :users, except: [:show, :index]
 
   post '/profiles' => 'profiles#create'
   get '/profiles/:id' => 'profiles#show'
+  get '/profiles/:profile_id/projects' => 'projects#profile_index'
   patch '/profiles/:id' => 'profiles#update'
   delete '/profiles/:id' => 'profiles#destroy'
 
-  resources :profiles
+  # resources :profiles
 
   post '/projects' => 'projects#create'
   get '/projects/:id' => 'projects#show'
   get '/projects' => 'projects#index'
   patch '/projects/:id' => 'projects#update'
   delete '/projects/:id' => 'projects#destroy'
-  get 'projects/:email' => 'projects#find_by_email'
+  # get 'projects/:email' => 'projects#find_by_email'
 
-  resources :projects
+  # resources :projects
+
+  resources :user do
+    resources :profiles
+  end
+
+  resources :profiles do
+    resources :projects
+  end
 
   # post '/workshops' => 'workshops#create'
   # get '/workshops/:id' => 'workshops#show'
@@ -39,17 +48,10 @@ Rails.application.routes.draw do
 
   # resources :attendances
 
-  resources :profiles do
-    resources :projects
-  end
-
   # resources :workshops do
   #   resources :attendances
   # end
 
-  resources :user do
-    resources :profiles
-  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -22,9 +22,12 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def profile_index
+    render json: Project.where(profile_id: params[:profile_id])
+  end
+
   def index
     @project = Project.all
-
     render json: @project, each_serializer: ProjectSerializer
   end
 
@@ -32,9 +35,9 @@ class ProjectsController < ApplicationController
     render json: @project, serializer: ProjectSerializer
   end
 
-  def find_by_email
-    @project = Project.where(email: params[:email])
-  end
+  # def find_by_email
+  #   @project = Project.where(email: params[:email])
+  # end
 
   # current_user.events.new
 
@@ -55,4 +58,15 @@ class ProjectsController < ApplicationController
                                     :profile_id,
                                     :project_image)
   end
+
+  def profile_params
+    params.require(:profile).permit(:surname,
+                                      :given_name,
+                                      :location,
+                                      :about_me,
+                                      :gender,
+                                      :user_id
+                                      )
+  end
+
 end
