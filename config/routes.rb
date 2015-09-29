@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   post '/users' => 'users#create'
   post '/login' => 'users#login'
-  patch '/users/:id' => 'users#update'
+  post '/users/:id' => 'users#update'
   delete '/users/:id' => 'users#destroy'
 
   # resources :users, except: [:show, :index]
@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   post '/profiles' => 'profiles#create'
   get '/profiles/:id' => 'profiles#show'
   get '/profiles/:profile_id/projects' => 'projects#profile_index'
-  patch '/profiles/:id' => 'profiles#update'
+  post '/profiles/:id' => 'profiles#update'
   delete '/profiles/:id' => 'profiles#destroy'
 
   # resources :profiles
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   post '/projects' => 'projects#create'
   get '/projects/:id' => 'projects#show'
   get '/projects' => 'projects#index'
-  patch '/projects/:id' => 'projects#update'
+  post '/projects/:id' => 'projects#update'
   delete '/projects/:id' => 'projects#destroy'
   # get 'projects/:email' => 'projects#find_by_email'
 
