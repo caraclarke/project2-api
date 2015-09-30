@@ -48,6 +48,7 @@ class ProfilesController < ApplicationController
                                       :location,
                                       :about_me,
                                       :gender,
+                                      :profile_picture,
                                       :user_id
                                       )
   end

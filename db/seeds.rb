@@ -28,12 +28,12 @@ Profile.create!([
 ])
 
 Project.create!([
-  {title: "Knit Yourself Gloves!", instructions: "1. Know How to knit", profile_id: 1},
+  {title: "Knit Yourself Gloves!", instructions: "1. Know how to knit", profile_id: 1},
   {title: "Cactus Pillow", instructions: "1. Know how to sew. 2. Know what a cactus looks like", profile_id: 2},
   {title: "Make a pillow of your state", instructions: "1. Know how to sew. 2. Know what your state looks like", profile_id: 3},
   {title: "Picture Frame Decoration", instructions: "1. Buy some glue and glitter. 2. Glitter it up.", profile_id: 4},
-  {title: "Knit Simple Scarf", instructions: "1. Know How to knit", profile_id: 5},
-  {title: "Knit Infinity Scarf", instructions: "1. Know How to knit", profile_id: 6},
+  {title: "Knit Simple Scarf", instructions: "1. Know how to knit", profile_id: 5},
+  {title: "Knit Infinity Scarf", instructions: "1. Know how to knit", profile_id: 6},
   {title: "Create a dress!", instructions: "1. Know how to sew.", profile_id: 7},
   {title: "Embroider a baseball hat", instructions: "1. Know how to Embroider.", profile_id: 8},
   {title: "Decorate a pillow", instructions: "1. Know how to Embroider.", profile_id: 9},
